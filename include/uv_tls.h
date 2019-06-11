@@ -36,7 +36,7 @@ extern "C" {
 #include "stdlib.h"
 #include "unistd.h"
 #include "assert.h"
-#include "defs.h"
+//#include "defs.h"
 #include "sys/socket.h"
 #include "stdlib.h"
 #include "tls_engine.h"

@@ -1,5 +1,14 @@
 #include "bio.h"
 
+#ifndef SSL_FAILURE
+#define SSL_FAILURE -1
+#endif
+
+#ifndef SSL_SUCCESS
+#define SSL_SUCCESS 0
+#endif
+
+
 /* Return the number of pending bytes in read and write buffers */
 size_t BIO_ctrl_pending(BIO *bio) {
     if (bio == NULL) {
@@ -239,7 +248,7 @@ int BIO_reset(BIO *bio) {
 }
 
 
-int BIO_read(BIO *bio, const char *buf, size_t size) {
+int BIO_read(BIO *bio, char *buf, size_t size) {
     int   sz;
     char* pt;
 
@@ -329,7 +338,7 @@ int BIO_net_recv( void *ctx, unsigned char *buf, size_t len) {
 
     int   sz;
 
-    sz = BIO_read(bio, (const char *)buf, len);
+    sz = BIO_read(bio, (char *)buf, len);
 
     if (sz <= 0) {
         return MBEDTLS_ERR_SSL_WANT_READ;

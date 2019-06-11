@@ -31,7 +31,7 @@ extern "C" {
 #endif
 
 #include "assert.h"
-#include "log.h"
+//#include "log.h"
 
 #if !defined(MBEDTLS_CONFIG_FILE)
 #include "mbedtls/config.h"
@@ -63,10 +63,10 @@ extern "C" {
 
 
 enum uv_tls_state {
-    STATE_INIT         = 0x0
-    ,STATE_HANDSHAKING = 0x1
-    ,STATE_IO          = 0x2 //read or write mode
-    ,STATE_CLOSING     = 0x4 // This means closed state also
+    STATE_INIT         = 0x0,
+    STATE_HANDSHAKING = 0x1,
+    STATE_IO          = 0x2, //read or write mode
+    STATE_CLOSING     = 0x4, // This means closed state also
 };
 
 //TODO: improve the error handling

@@ -1,5 +1,14 @@
 #include "uv_tls.h"
 
+#ifndef CONTAINER_OF
+#define CONTAINER_OF(ptr, type, member) \
+    ((type *) ((char *) (ptr) - offsetof(type, member)))
+#endif /* CONTAINER_OF */
+
+#ifndef OK
+#define OK 0
+#endif
+
 uv_stream_t *uv_tls_get_stream(uv_tls_t *tls) {
     return (uv_stream_t *) &tls->socket_;
 }
@@ -64,7 +73,7 @@ int uv__tls_err_hdlr(uv_tls_t *k, const int err_code) {
         default: {
             char buf[512];
             mbedtls_strerror(err_code, buf, 512);
-            __log(0, "uv__tls_err_hdlr error:%s\n", buf);
+            //__log(0, "uv__tls_err_hdlr error:%s\n", buf);
             return err_code;
         }
     }
@@ -329,7 +338,7 @@ int uv_tls_connect(
 
     int ret = getaddrinfo(host, NULL, NULL, &req_addr);
     if (ret) {
-        __log(LOG_VERBOSE, "get address info error");
+        //__log(LOG_VERBOSE, "get address info error");
         return -1;
     }
 
@@ -337,7 +346,6 @@ int uv_tls_connect(
     addr_in.sin_port = htons(port);
 
     freeaddrinfo(req_addr);
-
 
     if (rv != ERR_TLS_OK) {
         return rv;
@@ -348,5 +356,3 @@ int uv_tls_connect(
 
     return uv_tcp_connect(req, &(hdl->socket_), (const struct sockaddr *)&addr_in, on_tcp_conn);
 }
-
-

@@ -21,3 +21,7 @@ add_library(libuv_mbedtls
         src/uv_tls.c)
 
 target_link_libraries(libuv_mbedtls uv_a mbedtls)
+
+
+add_executable(example example/example.c)
+target_link_libraries(example libuv_mbedtls)
